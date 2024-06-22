@@ -1,0 +1,4 @@
+# Exploring Market Volatility Contagion Effects: Econometric Insights and Long Short-Term Memory Forecasting
+
+##### Description: 
+The phenomenon of volatility contagion, where economic disturbances in one market affect others, presents significant challenges and opportunities for global economic stability and predictive analysis. In response to the need for better understanding and forecasting these dynamics, this project aims to quantify the influence of financial instabilities across fifteen countries with different economic backgrounds throughperforming Vector Autoregressive (VAR) based causality tests as well as developing a novel predictive model using Long Short-Term Memory (LSTM) networks. This research seeks to bridge the gap between theoretical econometric analysis and practical financial prediction, which can potentially provide valuable insights for both policymakers and investors in effectively managing global market risks.

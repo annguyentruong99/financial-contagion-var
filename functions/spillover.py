@@ -3,7 +3,7 @@ import numpy as np
 from statsmodels.tsa.api import VAR
 
 """
-This module contains a function to calculate the average spillover table.
+Function to calculate the average spillover table.
 
 The average spillover table measures the spillover effects between variables in a VAR model.
 """
@@ -73,3 +73,39 @@ def calculate_avg_spillover_table(
     spillover_df.loc["Total Spillover Index"] = [total_spillover_index] * (n + 1)
 
     return spillover_df, lag_order, forecast_horizon
+
+
+"""
+Function to calculate net pairwise spillover table.
+
+The net pairwise spillover table measures the net spillover effects between variables in a VAR model.
+"""
+
+
+def calculate_net_pairwise_spillover_table(spillover_table: pd.DataFrame):
+    """
+    Calculate the net pairwise spillover table.
+
+    Args:
+        df_volatility (pd.DataFrame): DataFrame containing the volatility data.
+
+    Returns:
+        pd.DataFrame: The net pairwise spillover table.
+    """
+    n = spillover_table.shape[0]
+    net_pairwise_spillovers = np.zeros((n, n))
+
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                net_pairwise_spillovers[i, j] = (
+                    (spillover_table.iloc[j, i] - spillover_table.iloc[i, j]) / n
+                ) * 100
+
+    # Create DataFrame for better readability
+    countries = spillover_table.columns
+    net_pairwise_df = pd.DataFrame(
+        net_pairwise_spillovers, columns=countries, index=countries
+    )
+
+    return net_pairwise_df

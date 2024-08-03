@@ -137,56 +137,6 @@ def adf_test(
 
 
 """
-Function to check whether a dataframe has data populated within a specified date range
-"""
-
-
-def check_date_range(dataframes: pd.DataFrame, start_date: str, end_date: str) -> dict:
-    # Create datetime objects for the start and end of the year range
-    start_date = pd.to_datetime(start_date)
-    end_date = pd.to_datetime(end_date)
-
-    # Dictionary to hold the result
-    result = {}
-
-    # Iterate through each DataFrame
-    for name, df in dataframes.items():
-        # Check if the DataFrame contains any dates within the specified year range
-        contains_data = df["date"].between(start_date, end_date).any()
-
-        # Update the result dictionary
-        result[name] = contains_data
-
-    return result
-
-
-"""
-Function to extract each DataFrame's data within a specified date range
-"""
-
-
-def extract_date_range(
-    dataframes: pd.DataFrame, start_date: str, end_date: str
-) -> dict:
-    # Create datetime objects for the start and end of the year range
-    start_date = pd.to_datetime(start_date)
-    end_date = pd.to_datetime(end_date)
-
-    # Dictionary to hold the result
-    result = {}
-
-    # Iterate through each DataFrame
-    for name, df in dataframes.items():
-        # Extract the data within the specified year range
-        extracted_data = df[df["date"].between(start_date, end_date)]
-
-        # Update the result dictionary
-        result[name] = extracted_data
-
-    return result
-
-
-"""
 Function to map each DataFrame to a specified date range,
 containing only business days and without any public holidays
 """
@@ -239,13 +189,3 @@ def create_volatility_df(dataframes: dict) -> pd.DataFrame:
             result_df = pd.merge(result_df, volatility_df, on="date", how="outer")
 
     return result_df
-
-
-"""
-Function to transform a non-stationary feature to stationary
-"""
-
-
-def stationary_transformation(df: pd.DataFrame, variable: str) -> pd.DataFrame:
-    df[variable] = df[variable].diff()
-    return df

@@ -3,38 +3,6 @@ import numpy as np
 from tqdm import tqdm
 from statsmodels.tsa.api import VAR
 
-"""
-Function to calculate the average spillover table.
-
-The average spillover table measures the spillover effects between variables in a VAR model.
-"""
-
-
-def fit_var(df_volatility: pd.DataFrame, lag_order: int = None):
-    """
-    Fit a VAR model to the data.
-
-    Args:
-        df_volatility (pd.DataFrame): DataFrame containing the volatility df_volatility.
-        forecast_horizon (int, optional): The forecast horizon. Defaults to None.
-        lag_order (int, optional): The lag order for the VAR model. Defaults to None.
-
-    Returns:
-        VAR: The fitted VAR model.
-        int: The lag order used in the VAR model.
-    """
-    # Fit the VAR model
-    model = VAR(df_volatility)
-
-    # Calculate the lag order using the AIC criterion if not provided
-    if lag_order is None:
-        result = model.fit(maxlags=20, ic="aic")
-        lag_order = result.k_ar
-    else:
-        result = model.fit(maxlags=lag_order)
-
-    return result, lag_order
-
 
 """
 Function to calculate the average spillover table.

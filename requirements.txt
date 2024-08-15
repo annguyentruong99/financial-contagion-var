@@ -6,3 +6,5 @@ scikit-learn
 tensorflow==2.15.1
 scikeras
 bayesian-optimization
+pydot
+graphviz
